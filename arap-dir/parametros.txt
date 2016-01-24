@@ -1,0 +1,111 @@
+# Archivo de configuracion de ArapSimulator.
+# Este archivo se usa para mostrar los distintos parametros
+# que permiten configurar el simulador, y los valores que toman los mismos.
+#
+# Todas las lineas que comiencen con "#" con comentarios y seran ignoradas por 
+# el simulador al momento de leer los parametros.
+
+
+##############################PARAMETROS##############################
+
+# Cantidad de nodos a usar en la red (Sin unidad) (Entero>=4).
+#OJO: Este DEBE ser el PRIMER parametro a leer.
+nodos 10
+
+# Semilla para los valores aletorios usados en la simulacion (entero >0)
+#semilla 10
+
+# Valor de ejecucion usar para obtener diferentes resultados (usado en conjunto con la semilla) (Entero >0)
+#ejecucion 1692901013
+
+#Valor (bool) para indicar si se deben o no crear archivos .pcap y el archivo .tr
+usar-trazas 0
+
+# Cantidad de saltos que realizara cada paquete enviado a traves de la red (Sin unidad)
+# saltos <= nodos-1
+saltos 3
+
+# Numero de puerto a usar en cada nodo para recibir los paquetes (Sin unidad)
+puerto 200
+
+# Tamanio de las hormigas enviadas a traves de la red (Bytes)
+tamanio-hormiga 512
+
+# Intervalo de tiempo de envio de las hormigas exploradoras de cada nodo (Segundos)
+intervalo-exploradoras 444
+
+#Valor del Datarate para los nodos segun el rango especificado  (bps (bits per second))
+# 10mbps
+data-rate 0 1 10485760
+# 5mbps
+data-rate 2 3 5242880
+# 2mbps
+data-rate 4 5 2097152
+# 8mbps
+data-rate 6 7 8388608
+# 1mbps
+data-rate 8 9 1048576
+
+#Valor del tiempo de inicio de la aplicacion para los nodos segun el rango especificado  (Segundos)
+app-tiempo-iniciar 0 9 1.0
+
+#Valor del tiempo de finalizacion de la simulacion  (Segundos)
+tiempo-detener-simulador 3600
+
+#Valor del intervalo de tiempo en que se hara el cambio de "Delay" en los enlaces (Segundos)
+delay-enlaces-intervalo 1
+
+#Distribucion de probabilidad de la cual se obtendra el nuevo valor de delay de los enlaces (Valores de la distribucion en milisegundos)
+delay-enlaces-dist UniformRandomVariable 50 51
+
+#Distribucion a probabilidad de la cual se obtendra el nuevo valor de delay de computo en cada nodo (Valores de la distribucion en milisegundos)
+delay-computo-dist 0 5 ConstantRandomVariable 100
+delay-computo-dist 6 7 ConstantRandomVariable 200
+delay-computo-dist 8 8 TriangularRandomVariable 200 300 247.8
+delay-computo-dist 9 9 ExponentialRandomVariable 243 1000
+
+#Fraccion ([0-1]) de aumento del delay de computo a los nodos segun el rango especificado  (Sin unidad)
+delay-computo-incremento 0 3 0.0
+delay-computo-incremento 4 7 0.5
+delay-computo-incremento 8 9 0.8
+
+#Valor (bool) que indica si se usaran o no hormigas exploradores en la simulacion
+habilitar-exploradoras 0
+
+# Vamor (entero) de tamanio maximo de las colas de paquetes en los nodos
+tamanio-cola 1000
+
+#Tamanio maximo de segmento TCP, (se recomienda que sea el mismo valor que el tamanio de las hormigas)
+tamanio-segmento 512
+
+#Parametro que indica la especializacion de ArapPathManager a usar. El simulador incluye por defecto 
+#la clase SmartPathManager, la cual puede usarse con sus valores por defecto, o segun parametros leidos desde archivo
+path-manager SmartPathManagerDefault
+# Caso de uso de SmartPathManager con parametros
+#path-manager SmartPathManager 0.71 0.29 2.1 48 0.0004
+
+#Tiempo (segundos) que indica cada cuanto tiempo de simulacion se deben imprimir las tablas de probabilidad de los nodos a archivo
+imprimir-tablas-intervalo 100000
+
+############DISTRIBUCIONES PARA LAS HORMIGAS DE CARGA############
+
+#Distribucion que indica el intervalo de tiempo en que se enviaran las hormigas de carga
+hormigacarga-tiempo-dist 0 8 UniformRandomVariable 100 200
+hormigacarga-tiempo-dist 9 9 UniformRandomVariable 200 300
+
+#Distribucion que indica la cantidad de hormigas de carga a enviar a cada destino en cada uno de los tiempos obtenidos de la  distribucion anterior
+hormigacarga-cantidad-dist 0 9 TriangularRandomVariable 2 5 3.2
+
+#Distribucion usada para seleccionar los destinos finales a los que se enviaran las hormigas de carga en cada envio programado
+hormigacarga-destino-dist 0 9 NormalRandomVariable 4.5 2 4.5
+
+
+##############################FIN DE PARAMETROS##############################
+
+
+################## DISTRIBUCIONES DE PROBABILIDAD DISPONIBLES ##################
+#ConstantRandomVariable <valor>
+#UniformRandomVariable <min> <max>
+#TriangularRandomVariable <min> <max> <media>
+#ExponentialRandomVariable <media> <limite>
+#NormalRandomVariable <media> <varianza> <limite>

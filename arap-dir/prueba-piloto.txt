@@ -1,0 +1,71 @@
+# Parametros usados para las pruebas piloto usadas para validar el funcionamiento del simulador.
+# La justificacion de cada uno de estos valores, y el analisis de los resultados obtenidos
+# se explican en el documento que acompaña este proyecto.
+
+nodos 40
+saltos 3
+tamanio-hormiga 512
+tamanio-segmento 512
+tamanio-cola 5000
+intervalo-exploradoras 444.6
+
+# Simular un dia (24 horas)
+tiempo-detener-simulador 86400
+
+# Cambiar el delay de los enlaces cada segundo
+delay-enlaces-intervalo 1
+
+# 10mbps
+data-rate 0 7 10485760
+# 5mbps
+data-rate 8 15 5242880
+# 2mbps
+data-rate 16 23 2097152
+# 8mbps
+data-rate 24 31 8388608
+# 1mbps
+data-rate 32 39 1048576
+
+# Iniciar todas las app al mismo tiempo para generar la mayor cantidad de tráfico y congestión en las colas
+app-tiempo-iniciar 0 39 1.0
+
+# Valores de delay de los enlaces
+#Se justifica mediante la realizacion de PING a diferentes paginas y obteniendo estos valores aproximados en dichas pruebas
+delay-enlaces-dist UniformRandomVariable 50 100
+
+# Valores de delay de computo en los nodos
+delay-computo-dist 0 39 UniformRandomVariable 30 50
+
+# Valores de incremento de delay de computo en los nodos (respecto a la distribucion correspondiente en cada nodo)
+delay-computo-incremento 0 7 0
+delay-computo-incremento 8 15 0.1
+delay-computo-incremento 16 23 0.2
+delay-computo-incremento 24 31 0.3
+delay-computo-incremento 32 39 0.4
+
+
+path-manager SmartPathManagerDefault
+
+#Parametros a variar entre ejecuciones
+
+habilitar-exploradoras 0
+
+semilla 1
+
+# El valor del numero de ejecucion se obtuvo de manera automatica y como un argumento del simulador en este caso.
+#ejecucion 2
+
+
+#Valores que no afectan los resultados de la simulación
+imprimir-tablas-intervalo 86400
+puerto 200
+# Se recomienda no habilitar si se enviará una gran cantidad de paquetes ya que los archivos generados son de gran tamaño
+usar-trazas 0
+
+##################Parametros de las hormigas de carga#####################
+
+hormigacarga-tiempo-dist 0 39 NormalRandomVariable 105 25 15
+
+hormigacarga-cantidad-dist 0 39 UniformRandomVariable 3 6
+
+hormigacarga-destino-dist 0 39 NormalRandomVariable 19.5 42.25 19.5
