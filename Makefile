@@ -10,9 +10,9 @@ configure:
 PARAMETROS = parametros.txt
 SHELL=/bin/bash
 RUNS = 1
+RANDOM=1
 run:
 	@n=0; \
-	RANDOM=1; \
 	while [ $${n} -lt $(RUNS) ]; \
 	do \
 		n=`expr $$n + 1`; \
